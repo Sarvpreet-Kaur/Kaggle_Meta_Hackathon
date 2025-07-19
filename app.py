@@ -5,15 +5,14 @@ import seaborn as sns
 from pycountry import countries
 import pycountry_convert as pc
 from io import BytesIO
+import zipfile
+import os
 
 st.set_page_config(layout="wide", page_title="Kaggle Country Insights")
 st.markdown("<h1 style='text-align: center; color: #4B8BBE;'>🌍 Beyond Borders, Beyond Limits: Global AI Talent on Kaggle</h1>", unsafe_allow_html=True)
 st.title("🌐 Kaggle Country Medal Efficiency Dashboard")
 
 # === Load Data ===
-@st.cache_data
-import zipfile
-import os
 
 @st.cache_data
 def load_data():
