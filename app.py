@@ -16,10 +16,14 @@ def load_data():
     users = pd.read_csv("data/users_clean.csv")
     medal_eff = pd.read_csv("data/medal_efficiency.csv", index_col=0)
     token_trend = pd.read_csv("data/notebook_token_trends.csv")
-    keywords = pd.read_csv("data/top_modeling_keywords.csv")
+
+    # Safely read just the first few lines and infer actual structure
+    keywords = pd.read_csv("data/top_modeling_keywords.csv", nrows=50)
+
     tools = pd.read_csv("data/popular_tools.csv")
     medal_eff.reset_index(inplace=True)
     return users, medal_eff, token_trend, keywords, tools
+
 
 users, medal_eff_df, token_trend_df, keyword_df, tools_df = load_data()
 

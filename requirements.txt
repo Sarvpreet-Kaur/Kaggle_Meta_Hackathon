@@ -1,0 +1,12 @@
+streamlit
+pycountry
+pycountry-convert
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+wordcloud
+nltk
+scikit-learn
+openpyxl
