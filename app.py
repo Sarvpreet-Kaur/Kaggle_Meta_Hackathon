@@ -18,24 +18,30 @@ st.title("🌐 Kaggle Country Medal Efficiency Dashboard")
 def load_data():
     if not os.path.exists("data"):
         if not os.path.exists("data.zip"):
-            st.error("❌ data.zip not found. Make sure it's pushed via Git LFS.")
+            st.error("❌ data.zip not found! Make sure it is in the repo root and pushed via Git LFS.")
             st.stop()
 
-        with zipfile.ZipFile("data.zip", "r") as zip_ref:
-            zip_ref.extractall("data")
-        
-        # Give Streamlit time to recognize new files
-        st.info("🔄 Extracting data... Please refresh in a few seconds.")
-        st.stop()  # Stops app execution until next rerun
+        try:
+            with zipfile.ZipFile("data.zip", "r") as zip_ref:
+                zip_ref.extractall("data")
+        except Exception as e:
+            st.error(f"❌ Failed to unzip data.zip: {e}")
+            st.stop()
 
-    # Proceed once data/ is available
-    users = pd.read_csv("data/users_clean.csv")
-    medal_eff = pd.read_csv("data/medal_efficiency.csv", index_col=0)
-    token_trend = pd.read_csv("data/notebook_token_trends.csv")
-    keywords = pd.read_csv("data/top_modeling_keywords.csv")
-    tools = pd.read_csv("data/popular_tools.csv")
-    medal_eff.reset_index(inplace=True)
-    return users, medal_eff, token_trend, keywords, tools
+        st.warning("🔁 Unzipping data... Please refresh in 2 seconds.")
+        st.stop()
+
+    try:
+        users = pd.read_csv("data/users_clean.csv")
+        medal_eff = pd.read_csv("data/medal_efficiency.csv", index_col=0)
+        token_trend = pd.read_csv("data/notebook_token_trends.csv")
+        keywords = pd.read_csv("data/top_modeling_keywords.csv")
+        tools = pd.read_csv("data/popular_tools.csv")
+        medal_eff.reset_index(inplace=True)
+        return users, medal_eff, token_trend, keywords, tools
+    except FileNotFoundError as e:
+        st.error(f"❌ Could not find one of the CSV files: {e}")
+        st.stop()
 
 
 users, medal_eff_df, token_trend_df, keyword_df, tools_df = load_data()
