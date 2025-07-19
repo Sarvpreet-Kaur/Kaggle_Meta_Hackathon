@@ -16,10 +16,19 @@ st.title("🌐 Kaggle Country Medal Efficiency Dashboard")
 
 @st.cache_data
 def load_data():
-    if not os.path.exists("data"):  # Unzip only once
+    if not os.path.exists("data"):
+        if not os.path.exists("data.zip"):
+            st.error("❌ data.zip not found. Make sure it's pushed via Git LFS.")
+            st.stop()
+
         with zipfile.ZipFile("data.zip", "r") as zip_ref:
             zip_ref.extractall("data")
+        
+        # Give Streamlit time to recognize new files
+        st.info("🔄 Extracting data... Please refresh in a few seconds.")
+        st.stop()  # Stops app execution until next rerun
 
+    # Proceed once data/ is available
     users = pd.read_csv("data/users_clean.csv")
     medal_eff = pd.read_csv("data/medal_efficiency.csv", index_col=0)
     token_trend = pd.read_csv("data/notebook_token_trends.csv")
