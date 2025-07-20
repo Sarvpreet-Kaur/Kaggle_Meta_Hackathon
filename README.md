@@ -27,20 +27,27 @@ Create a data/ folder inside the project directory and add the required Kaggle d
 
 /data/
 ├── users.csv - https://www.kaggle.com/datasets/sarvpreetkaur22/meta-kaggle-users-cleaned-dataset
+|
 ├── teams.csv - https://www.kaggle.com/datasets/sarvpreetkaur22/meta-kaggle-dataset-teams-cleaned
+|
 ├── team-members.csv - https://www.kaggle.com/datasets/sarvpreetkaur22/meta-kaggle-dataset-team-members-cleaned
+|
 ├── scripts.csv - https://www.kaggle.com/datasets/sarvpreetkaur22/meta-kaggle-scripts-cleaned-dataset
+|
 ├── user-achievements.csv - https://www.kaggle.com/datasets/sarvpreetkaur22/meta-kaggle-dataset-user-achievements-cleaned
+|
 ├── competitions.csv - https://www.kaggle.com/datasets/sarvpreetkaur22/meta-kaggle-competitions-cleaned-dataset
 
 💡 Ensure the filenames match exactly or adjust app.py and the notebook accordingly.
 
 ### 3. Set Up a Virtual Environment
 python -m venv venv
-# Activate the environment
-# On Windows:
+
+** Activate the environment **
+ * On Windows:
 venv\Scripts\activate
-# On macOS/Linux:
+
+ * On macOS/Linux:
 source venv/bin/activate
 
 ### 4. Install Dependencies
@@ -57,15 +64,17 @@ This will open the interactive dashboard in your browser, where you can:
 * View top countries by Kaggle user base
 * Analyze modeling keyword and tool trends
 * Export filtered results as Excel or PDF
+--- 
 
-📊 Features
+## 📊 Features:
+
 ✅ Region-based filtering
 ✅ Top countries by efficiency and user count
 ✅ Keyword and tool usage visualizations
 ✅ Exportable reports
 ✅ Fully interactive frontend
 
-🧪 Tech Stack
+## 🧪 Tech Stack
 Python 3.13
 Pandas, Seaborn, Matplotlib
 Streamlit
