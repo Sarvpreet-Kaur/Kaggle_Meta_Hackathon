@@ -11,7 +11,7 @@ This repository contains:
 - 📓 A **Jupyter Notebook** for data preprocessing and exploratory analysis.<br>
 - 🌐 A **Streamlit app** to visualize and interact with key insights.<br>
 - 📦 A `requirements.txt` to reproduce the environment.<br>
-- 
+ 
 ---
 
 ## ⚙️ Setup Instructions
@@ -25,7 +25,7 @@ cd your-repo-name
 ### 2. Prepare the Dataset
 Create a data/ folder inside the project directory and add the required Kaggle dataset files:<br>  
 
-/data/
+/data/<br>
 ├── users.csv - https://www.kaggle.com/datasets/sarvpreetkaur22/meta-kaggle-users-cleaned-dataset<br>
 ├── teams.csv - https://www.kaggle.com/datasets/sarvpreetkaur22/meta-kaggle-dataset-teams-cleaned<br>
 ├── team-members.csv - https://www.kaggle.com/datasets/sarvpreetkaur22/meta-kaggle-dataset-team-members-cleaned<br>
@@ -69,9 +69,12 @@ This will open the interactive dashboard in your browser, where you can:
 ✅ Exportable reports<br>
 ✅ Fully interactive frontend<br>
 
+---
+
 ## 🧪 Tech Stack
 * Python 3.13
 * Pandas, Seaborn, Matplotlib
 * Streamlit
 * Pycountry / pycountry-convert
 * nltk
+---
