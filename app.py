@@ -5,32 +5,22 @@ import seaborn as sns
 from pycountry import countries
 import pycountry_convert as pc
 from io import BytesIO
-import zipfile
-import os
 
 
 # === Load Data ===
-
-import pandas as pd
-import streamlit as st
-
 @st.cache_data
 def load_data():
-    base_url = "https://huggingface.co/datasets/rishabhsri1308/Kaggle_meta_datasets/resolve/main/"
+    users = pd.read_csv("data/users_clean.csv")
+    medal_eff = pd.read_csv("data/medal_efficiency.csv", index_col=0)
+    token_trend = pd.read_csv("data/notebook_token_trends.csv")
 
-    try:
-        users = pd.read_csv(base_url + "users_clean.csv")
-        medal_eff = pd.read_csv(base_url + "medal_efficiency.csv", index_col=0)
-        token_trend = pd.read_csv(base_url + "notebook_token_trends.csv")
-        keywords = pd.read_csv(base_url + "top_modeling_keywords.csv")
-        tools = pd.read_csv(base_url + "popular_tools.csv")
-        medal_eff.reset_index(inplace=True)
+    # Safely read just the first few lines and infer actual structure
+    keywords = pd.read_csv("data/top_modeling_keywords.csv", nrows=50)
 
-        return users, medal_eff, token_trend, keywords, tools
+    tools = pd.read_csv("data/popular_tools.csv")
+    medal_eff.reset_index(inplace=True)
+    return users, medal_eff, token_trend, keywords, tools
 
-    except Exception as e:
-        st.error(f"❌ Failed to load data from Hugging Face: {e}")
-        st.stop()
 
 st.set_page_config(layout="wide", page_title="Kaggle Country Insights")
 st.markdown("<h1 style='text-align: center; color: #4B8BBE;'>🌍 Beyond Borders, Beyond Limits: Global AI Talent on Kaggle</h1>", unsafe_allow_html=True)
