@@ -8,41 +8,36 @@ from io import BytesIO
 import zipfile
 import os
 
-st.set_page_config(layout="wide", page_title="Kaggle Country Insights")
-st.markdown("<h1 style='text-align: center; color: #4B8BBE;'>🌍 Beyond Borders, Beyond Limits: Global AI Talent on Kaggle</h1>", unsafe_allow_html=True)
-st.title("🌐 Kaggle Country Medal Efficiency Dashboard")
 
 # === Load Data ===
 
+import pandas as pd
+import streamlit as st
+
 @st.cache_data
 def load_data():
-    if not os.path.exists("data"):
-        if not os.path.exists("data.zip"):
-            st.error("❌ data.zip not found! Make sure it is in the repo root and pushed via Git LFS.")
-            st.stop()
-
-        try:
-            with zipfile.ZipFile("data.zip", "r") as zip_ref:
-                zip_ref.extractall("data")
-        except Exception as e:
-            st.error(f"❌ Failed to unzip data.zip: {e}")
-            st.stop()
-
-        st.warning("🔁 Unzipping data... Please refresh in 2 seconds.")
-        st.stop()
+    base_url = "https://huggingface.co/datasets/rishabhsri1308/Kaggle_meta_datasets/resolve/main/"
 
     try:
-        users = pd.read_csv("data/users_clean.csv")
-        medal_eff = pd.read_csv("data/medal_efficiency.csv", index_col=0)
-        token_trend = pd.read_csv("data/notebook_token_trends.csv")
-        keywords = pd.read_csv("data/top_modeling_keywords.csv")
-        tools = pd.read_csv("data/popular_tools.csv")
+        users = pd.read_csv(base_url + "users_clean.csv")
+        medal_eff = pd.read_csv(base_url + "medal_efficiency.csv", index_col=0)
+        token_trend = pd.read_csv(base_url + "notebook_token_trends.csv")
+        keywords = pd.read_csv(base_url + "top_modeling_keywords.csv")
+        tools = pd.read_csv(base_url + "popular_tools.csv")
         medal_eff.reset_index(inplace=True)
+
         return users, medal_eff, token_trend, keywords, tools
-    except FileNotFoundError as e:
-        st.error(f"❌ Could not find one of the CSV files: {e}")
+
+    except Exception as e:
+        st.error(f"❌ Failed to load data from Hugging Face: {e}")
         st.stop()
 
+st.set_page_config(layout="wide", page_title="Kaggle Country Insights")
+st.markdown("<h1 style='text-align: center; color: #4B8BBE;'>🌍 Beyond Borders, Beyond Limits: Global AI Talent on Kaggle</h1>", unsafe_allow_html=True)
+st.title("🌐 Kaggle Country Medal Efficiency Dashboard")
+with st.status("⏳ Loading data... Please wait a moment.", expanded=True) as status:
+    users, medal_eff_df, token_trend_df, keyword_df, tools_df = load_data()
+    status.update(label="✅ Data loaded successfully!", state="complete", expanded=False)
 
 users, medal_eff_df, token_trend_df, keyword_df, tools_df = load_data()
 

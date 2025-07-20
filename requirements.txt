@@ -10,3 +10,6 @@ wordcloud
 nltk
 scikit-learn
 openpyxl
+ipython
+nbformat
+io
